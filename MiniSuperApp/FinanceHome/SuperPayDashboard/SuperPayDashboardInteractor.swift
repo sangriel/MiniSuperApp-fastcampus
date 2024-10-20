@@ -28,7 +28,7 @@ protocol SuperPayDashboardInteractorDependency {
 }
 
 final class SuperPayDashboardInteractor: PresentableInteractor<SuperPayDashboardPresentable>, SuperPayDashboardInteractable, SuperPayDashboardPresentableListener {
-
+    
     weak var router: SuperPayDashboardRouting?
     weak var listener: SuperPayDashboardListener?
     //이렇게 따로 프로토콜을 만들어서 주입 받는 이유는 init을 직접적으로 바꾸면 수정해야 하는 코드가 많아짐
@@ -38,23 +38,23 @@ final class SuperPayDashboardInteractor: PresentableInteractor<SuperPayDashboard
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
     init(presenter: SuperPayDashboardPresentable,
-                  dependency : SuperPayDashboardInteractorDependency) {
+         dependency : SuperPayDashboardInteractorDependency) {
         self.dependency = dependency
         self.cancellable = .init()
         super.init(presenter: presenter)
         presenter.listener = self
     }
-
+    
     override func didBecomeActive() {
         super.didBecomeActive()
         dependency.balance.sink { [weak self] balance in
             self?.dependency.balanceFormatter.string(from: NSNumber(value: balance)).map({ balance in
-               self?.presenter.updateBalance(balance)
+                self?.presenter.updateBalance(balance)
             })
             //interactor에서 ui를 업데이트 하려고 할때는 presenter를 사용
         }.store(in: &cancellable)
     }
-
+    
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
