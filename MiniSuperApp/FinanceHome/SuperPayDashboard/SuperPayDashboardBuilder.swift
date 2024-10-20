@@ -6,16 +6,21 @@
 //
 
 import ModernRIBs
+import Foundation
 
 protocol SuperPayDashboardDependency: Dependency {
     // TODO: Declare the set of dependencies required by this RIB, but cannot be
     // created by this RIB.
     var balance : ReadOnlyCurrentValuePublisher<Double> { get }
+    var formatter : NumberFormatter { get }
 }
 //부모에서 받고 싶은 dependency는 component에서 받도록
 final class SuperPayDashboardComponent: Component<SuperPayDashboardDependency>, SuperPayDashboardInteractorDependency{
     var balance: ReadOnlyCurrentValuePublisher<Double> {
         dependency.balance
+    }
+    var balanceFormatter: NumberFormatter {
+        dependency.formatter
     }
     // TODO: Declare 'fileprivate' dependencies that are only used by this RIB.
 }

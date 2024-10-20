@@ -10,8 +10,8 @@ final class FinanceHomeComponent: Component<FinanceHomeDependency>, SuperPayDash
     
     private let balancePublisher : CurrentValuePublisher<Double>
     
-    init(dependency:FinanceHomeDependency,
-         balance : CurrentValuePublisher<Double>
+    init(dependency: FinanceHomeDependency,
+         balance: CurrentValuePublisher<Double>
     ) {
         self.balancePublisher = balance
         super.init(dependency: dependency)
@@ -34,7 +34,8 @@ final class FinanceHomeBuilder: Builder<FinanceHomeDependency>, FinanceHomeBuild
     func build(withListener listener: FinanceHomeListener) -> FinanceHomeRouting {
         let balancePublisher = CurrentValuePublisher<Double>(initialValue: 0)
         
-        let component  = FinanceHomeComponent(dependency: dependency)
+        let component  = FinanceHomeComponent(dependency: dependency,
+                                              balance: balancePublisher)
         
         let viewController = FinanceHomeViewController()
         let interactor = FinanceHomeInteractor(presenter: viewController)
