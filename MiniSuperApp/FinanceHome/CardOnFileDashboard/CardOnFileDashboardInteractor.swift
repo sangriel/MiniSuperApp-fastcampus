@@ -19,7 +19,7 @@ protocol CardOnFileDashboardPresentable: Presentable {
 }
 
 protocol CardOnFileDashboardListener: AnyObject {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func cardOnFileDashboardDidTapAddPaymentMethod()
 }
 
 protocol CardOnFileDashboardInteractorDependency {
@@ -56,5 +56,10 @@ final class CardOnFileDashboardInteractor: PresentableInteractor<CardOnFileDashb
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+    
+    
+    func didTapPaymentAddMethod() {
+        listener?.cardOnFileDashboardDidTapAddPaymentMethod()
     }
 }

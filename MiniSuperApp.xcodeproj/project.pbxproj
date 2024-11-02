@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -118,6 +118,10 @@
 		F5EAA235270B3AA600EF2B70 /* UIColor+Super.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Super.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2F9928272CD61B2600299B59 /* AddPaymentMethod */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AddPaymentMethod; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		F5829F5226DB2BC400BFA8CD /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -190,6 +194,7 @@
 		F57F6ADA26DB49EA00C0117D /* FinanceHome */ = {
 			isa = PBXGroup;
 			children = (
+				2F9928272CD61B2600299B59 /* AddPaymentMethod */,
 				2F9D1D782CC509D300EAEA5C /* Repository */,
 				2F9D1D682CC503E000EAEA5C /* CardOnFileDashboard */,
 				2F9D1D582CC3D20F00EAEA5C /* SuperPayDashboard */,
@@ -324,6 +329,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				2F9928272CD61B2600299B59 /* AddPaymentMethod */,
 			);
 			name = MiniSuperApp;
 			packageProductDependencies = (

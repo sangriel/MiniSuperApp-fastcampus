@@ -4,6 +4,8 @@ protocol FinanceHomeRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
     func attachSuperPayDashboard()
     func attachCardOnFileDashboard()
+    func attachAddPaymentMethodDashboard()
+    func detachAddPaymentMethodDashboard()
 }
 
 protocol FinanceHomePresentable: Presentable {
@@ -16,6 +18,7 @@ protocol FinanceHomeListener: AnyObject {
 }
 
 final class FinanceHomeInteractor: PresentableInteractor<FinanceHomePresentable>, FinanceHomeInteractable, FinanceHomePresentableListener {
+    
     
     weak var router: FinanceHomeRouting?
     weak var listener: FinanceHomeListener?
@@ -38,4 +41,9 @@ final class FinanceHomeInteractor: PresentableInteractor<FinanceHomePresentable>
         super.willResignActive()
         // TODO: Pause any business logic.
     }
+    
+    func cardOnFileDashboardDidTapAddPaymentMethod() {
+        router?.attachAddPaymentMethodDashboard()
+    }
+   
 }
