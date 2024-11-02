@@ -54,7 +54,7 @@ final class FinanceHomeRouter: ViewableRouter<FinanceHomeInteractable, FinanceHo
     func attachAddPaymentMethodDashboard() {
         if addPaymentMethodRouting != nil { return }
         let router = addPaymentMethodBulilder.build(withListener: interactor)
-        let view = router.viewControllable
+        let view = NavigationControllerable(root: router.viewControllable)
         viewControllable.present(view, animated: true, completion: nil)
         attachChild(router)
     }
