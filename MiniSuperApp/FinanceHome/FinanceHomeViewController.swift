@@ -12,6 +12,12 @@ final class FinanceHomeViewController: UIViewController, FinanceHomePresentable,
     
     weak var listener: FinanceHomePresentableListener?
     
+    private let scrollView : UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
+    
     private let stackView : UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -38,11 +44,19 @@ final class FinanceHomeViewController: UIViewController, FinanceHomePresentable,
         title = "슈퍼페이"
         tabBarItem = UITabBarItem(title: "슈퍼페이", image: UIImage(systemName: "creditcard"), selectedImage: UIImage(systemName: "creditcard.fill"))
         view.backgroundColor = .white
-        view.addSubview(stackView)
+        view.addSubview(scrollView)
+        scrollView.addSubview(stackView)
+        
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            scrollView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor)
         ])
     }
     
