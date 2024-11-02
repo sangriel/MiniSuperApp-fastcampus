@@ -9,9 +9,7 @@ import ModernRIBs
 import UIKit
 
 protocol AddPaymentMethodPresentableListener: AnyObject {
-    // TODO: Declare properties and methods that the view controller can invoke to perform
-    // business logic, such as signIn(). This protocol is implemented by the corresponding
-    // interactor class.
+    func didTapClose()
 }
 
 final class AddPaymentMethodViewController: UIViewController, AddPaymentMethodPresentable, AddPaymentMethodViewControllable {
@@ -79,10 +77,24 @@ final class AddPaymentMethodViewController: UIViewController, AddPaymentMethodPr
     private func addCardButtonTapped() {
         
     }
+    
+    @objc
+    private func didTapClose() {
+        listener?.didTapClose()
+    }
 }
 extension AddPaymentMethodViewController {
     private func setUpViews() {
         title = "Add Card"
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(systemName: "xmark",
+                           withConfiguration:
+                            UIImage.SymbolConfiguration(pointSize: 18,weight: .semibold)),
+            style: .plain,
+            target: self,
+            action: #selector(didTapClose))
+        
         view.backgroundColor = .backgroundColor
         view.addSubview(cardNumberTextField)
         view.addSubview(stackView)
@@ -102,7 +114,7 @@ extension AddPaymentMethodViewController {
             
             stackView.bottomAnchor.constraint(equalTo: addCardButton.topAnchor, constant: -20),
             addCardButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
-            addCardButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
+            addCardButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
             cardNumberTextField.heightAnchor.constraint(equalToConstant: 60),
             securityTextField.heightAnchor.constraint(equalToConstant: 60),
