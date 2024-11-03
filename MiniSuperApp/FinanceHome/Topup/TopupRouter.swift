@@ -7,7 +7,7 @@
 
 import ModernRIBs
 
-protocol TopupInteractable: Interactable, AddPaymentMethodListener {
+protocol TopupInteractable: Interactable, AddPaymentMethodListener, EnterAmountListener {
     var router: TopupRouting? { get set }
     var listener: TopupListener? { get set }
     var presentationDelegateProxy : AdaptivePresentationControllerDelegateProxy { get }
@@ -19,14 +19,20 @@ protocol TopupViewControllable: ViewControllable {
 final class TopupRouter: Router<TopupInteractable>, TopupRouting {
 
     private var navigationControllerable : NavigationControllerable?
+    
     private let addPaymentMethodBuilder : AddPaymentMethodBuildable
     private var addPaymentMethodRouter : Routing?
     
+    private let enterAmountBuilder : EnterAmountBuildable
+    private var enterAmountRouter : Routing?
+    
     init(interactor: TopupInteractable,
          viewController: ViewControllable,
-         addPaymentMethodBuilder: AddPaymentMethodBuildable) {
+         addPaymentMethodBuilder: AddPaymentMethodBuildable,
+         enterAmountBuilder: EnterAmountBuildable) {
         self.viewController = viewController
         self.addPaymentMethodBuilder = addPaymentMethodBuilder
+        self.enterAmountBuilder = enterAmountBuilder
         super.init(interactor: interactor)
         interactor.router = self
     }
@@ -60,6 +66,25 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
         addPaymentMethodRouter = nil
     }
     
+    
+    func attachEnterAmount() {
+        guard enterAmountRouter == nil else { return }
+        let router = enterAmountBuilder.build(withListener: interactor)
+        let view = router.viewControllable
+        enterAmountRouter = router
+        self.presentInsideNavigation(view)
+        attachChild(router)
+    }
+    
+    func detachEnterAmount() {
+        guard let router = enterAmountRouter else { return }
+        dismissPresentedNavigation()
+        detachChild(router)
+        enterAmountRouter = nil
+    }
+    
+}
+extension TopupRouter {
     private func presentInsideNavigation(_ viewController : ViewControllable) {
         let navigation = NavigationControllerable(root: viewController)
         self.navigationControllerable = navigation

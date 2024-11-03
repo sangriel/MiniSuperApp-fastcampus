@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2F2533A02CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F25339F2CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift */; };
+		2F2533D22CD76CF8004CEAF0 /* UIViewController + Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F2533D12CD76CF8004CEAF0 /* UIViewController + Utils.swift */; };
 		2F9D1D5D2CC3D24300EAEA5C /* SuperPayDashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9D1D592CC3D24300EAEA5C /* SuperPayDashboardRouter.swift */; };
 		2F9D1D5E2CC3D24300EAEA5C /* SuperPayDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9D1D5A2CC3D24300EAEA5C /* SuperPayDashboardViewController.swift */; };
 		2F9D1D5F2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9D1D5B2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift */; };
@@ -65,6 +66,7 @@
 
 /* Begin PBXFileReference section */
 		2F25339F2CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptivePresentationControllerDelegate.swift; sourceTree = "<group>"; };
+		2F2533D12CD76CF8004CEAF0 /* UIViewController + Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController + Utils.swift"; sourceTree = "<group>"; };
 		2F9D1D592CC3D24300EAEA5C /* SuperPayDashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperPayDashboardRouter.swift; sourceTree = "<group>"; };
 		2F9D1D5A2CC3D24300EAEA5C /* SuperPayDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperPayDashboardViewController.swift; sourceTree = "<group>"; };
 		2F9D1D5B2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperPayDashboardBuilder.swift; sourceTree = "<group>"; };
@@ -234,6 +236,7 @@
 				F5EAA22F270B3A7100EF2B70 /* RIBs+Utils.swift */,
 				2F9D1D642CC4F7D200EAEA5C /* Combine+Utils.swift */,
 				2F25339F2CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift */,
+				2F2533D12CD76CF8004CEAF0 /* UIViewController + Utils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -410,6 +413,7 @@
 				2F2533A02CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift in Sources */,
 				2F9D1D5F2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift in Sources */,
 				2F9D1D732CC506C400EAEA5C /* AddPaymentMethodButton.swift in Sources */,
+				2F2533D22CD76CF8004CEAF0 /* UIViewController + Utils.swift in Sources */,
 				2F9D1D772CC5098700EAEA5C /* PaymentMethod.swift in Sources */,
 				2F9D1D752CC5087000EAEA5C /* PaymentMethodView.swift in Sources */,
 				2F9D1D602CC3D24300EAEA5C /* SuperPayDashboardInteractor.swift in Sources */,

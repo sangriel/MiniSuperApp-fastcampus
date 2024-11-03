@@ -91,15 +91,9 @@ final class AddPaymentMethodViewController: UIViewController, AddPaymentMethodPr
 extension AddPaymentMethodViewController {
     private func setUpViews() {
         title = "Add Card"
-        
-        navigationItem.leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "xmark",
-                           withConfiguration:
-                            UIImage.SymbolConfiguration(pointSize: 18,weight: .semibold)),
-            style: .plain,
-            target: self,
-            action: #selector(didTapClose))
-        
+       
+        self.setUpNavigationItem(target: self, action: #selector(didTapClose))
+       
         view.backgroundColor = .backgroundColor
         view.addSubview(cardNumberTextField)
         view.addSubview(stackView)
