@@ -7,7 +7,7 @@
 
 import ModernRIBs
 
-protocol TopupInteractable: Interactable, AddPaymentMethodListener, EnterAmountListener {
+protocol TopupInteractable: Interactable, AddPaymentMethodListener, EnterAmountListener, CardOnFileListener {
     var router: TopupRouting? { get set }
     var listener: TopupListener? { get set }
     var presentationDelegateProxy : AdaptivePresentationControllerDelegateProxy { get }
@@ -26,13 +26,18 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
     private let enterAmountBuilder : EnterAmountBuildable
     private var enterAmountRouter : Routing?
     
+    private let cardOnFileBuilder : CardOnFileBuildable
+    private var cardOnFileRouter : Routing?
+    
     init(interactor: TopupInteractable,
          viewController: ViewControllable,
          addPaymentMethodBuilder: AddPaymentMethodBuildable,
-         enterAmountBuilder: EnterAmountBuildable) {
+         enterAmountBuilder: EnterAmountBuildable,
+         cardOnFileBuilder : CardOnFileBuildable) {
         self.viewController = viewController
         self.addPaymentMethodBuilder = addPaymentMethodBuilder
         self.enterAmountBuilder = enterAmountBuilder
+        self.cardOnFileBuilder = cardOnFileBuilder
         super.init(interactor: interactor)
         interactor.router = self
     }
@@ -81,6 +86,24 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
         dismissPresentedNavigation()
         detachChild(router)
         enterAmountRouter = nil
+    }
+    
+    func attachCardOnFile() {
+        guard cardOnFileRouter == nil else { return }
+        let router = cardOnFileBuilder.build(withListener: interactor)
+        let view = router.viewControllable
+        navigationControllerable?.pushViewController(view, animated: true)
+        self.cardOnFileRouter = router
+        self.attachChild(router)
+        
+    }
+    
+    func detachCardOnFile() {
+        guard let router = cardOnFileRouter else { return }
+        //이게 꼭 detachCardOnFile 화면이 navigationStack의 최상단에 있으리라는 보장이 있나?
+        navigationControllerable?.popViewController(animated: true)
+        self.detachChild(router)
+        self.cardOnFileRouter = nil
     }
     
 }
