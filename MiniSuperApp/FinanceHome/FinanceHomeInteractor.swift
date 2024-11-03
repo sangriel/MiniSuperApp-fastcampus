@@ -4,6 +4,8 @@ protocol FinanceHomeRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
     func attachSuperPayDashboard()
     func attachCardOnFileDashboard()
+    func attachAddPaymentMethodDashboard()
+    func detachAddPaymentMethodDashboard()
 }
 
 protocol FinanceHomePresentable: Presentable {
@@ -16,15 +18,18 @@ protocol FinanceHomeListener: AnyObject {
 }
 
 final class FinanceHomeInteractor: PresentableInteractor<FinanceHomePresentable>, FinanceHomeInteractable, FinanceHomePresentableListener {
-    
     weak var router: FinanceHomeRouting?
     weak var listener: FinanceHomeListener?
+    
+    var presentationDelegateProxy : AdaptivePresentationControllerDelegateProxy
     
     // TODO: Add additional dependencies to constructor. Do not perform any logic
     // in constructor.
     override init(presenter: FinanceHomePresentable) {
+        self.presentationDelegateProxy = AdaptivePresentationControllerDelegateProxy()
         super.init(presenter: presenter)
         presenter.listener = self
+        self.presentationDelegateProxy.delegate = self
     }
     
     override func didBecomeActive() {
@@ -37,5 +42,23 @@ final class FinanceHomeInteractor: PresentableInteractor<FinanceHomePresentable>
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+    
+    func cardOnFileDashboardDidTapAddPaymentMethod() {
+        router?.attachAddPaymentMethodDashboard()
+    }
+}
+extension FinanceHomeInteractor {
+    func addPaymentMethodDidTapClose() {
+        router?.detachAddPaymentMethodDashboard()
+    }
+    
+    func addPaymentMethodDidAddCard(method: PaymentMethod) {
+        router?.detachAddPaymentMethodDashboard()
+    }
+}
+extension FinanceHomeInteractor : AdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss() {
+        router?.detachAddPaymentMethodDashboard()
     }
 }

@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F2533A02CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F25339F2CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift */; };
 		2F9D1D5D2CC3D24300EAEA5C /* SuperPayDashboardRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9D1D592CC3D24300EAEA5C /* SuperPayDashboardRouter.swift */; };
 		2F9D1D5E2CC3D24300EAEA5C /* SuperPayDashboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9D1D5A2CC3D24300EAEA5C /* SuperPayDashboardViewController.swift */; };
 		2F9D1D5F2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F9D1D5B2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift */; };
@@ -63,6 +64,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F25339F2CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptivePresentationControllerDelegate.swift; sourceTree = "<group>"; };
 		2F9D1D592CC3D24300EAEA5C /* SuperPayDashboardRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperPayDashboardRouter.swift; sourceTree = "<group>"; };
 		2F9D1D5A2CC3D24300EAEA5C /* SuperPayDashboardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperPayDashboardViewController.swift; sourceTree = "<group>"; };
 		2F9D1D5B2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuperPayDashboardBuilder.swift; sourceTree = "<group>"; };
@@ -117,6 +119,10 @@
 		F5EAA233270B3A9A00EF2B70 /* UIColor+Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Utils.swift"; sourceTree = "<group>"; };
 		F5EAA235270B3AA600EF2B70 /* UIColor+Super.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Super.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		2F9928272CD61B2600299B59 /* AddPaymentMethod */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = AddPaymentMethod; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F5829F5226DB2BC400BFA8CD /* Frameworks */ = {
@@ -190,6 +196,7 @@
 		F57F6ADA26DB49EA00C0117D /* FinanceHome */ = {
 			isa = PBXGroup;
 			children = (
+				2F9928272CD61B2600299B59 /* AddPaymentMethod */,
 				2F9D1D782CC509D300EAEA5C /* Repository */,
 				2F9D1D682CC503E000EAEA5C /* CardOnFileDashboard */,
 				2F9D1D582CC3D20F00EAEA5C /* SuperPayDashboard */,
@@ -224,6 +231,7 @@
 				F5EAA21F270B39DC00EF2B70 /* PushModalPresentationController.swift */,
 				F5EAA22F270B3A7100EF2B70 /* RIBs+Utils.swift */,
 				2F9D1D642CC4F7D200EAEA5C /* Combine+Utils.swift */,
+				2F25339F2CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -325,6 +333,9 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				2F9928272CD61B2600299B59 /* AddPaymentMethod */,
+			);
 			name = MiniSuperApp;
 			packageProductDependencies = (
 				F5829F6D26DB2DE900BFA8CD /* ModernRIBs */,
@@ -393,6 +404,7 @@
 				F5EAA232270B3A8F00EF2B70 /* UIView+Utils.swift in Sources */,
 				2F9D1D5D2CC3D24300EAEA5C /* SuperPayDashboardRouter.swift in Sources */,
 				2F9D1D5E2CC3D24300EAEA5C /* SuperPayDashboardViewController.swift in Sources */,
+				2F2533A02CD62921004CEAF0 /* AdaptivePresentationControllerDelegate.swift in Sources */,
 				2F9D1D5F2CC3D24300EAEA5C /* SuperPayDashboardBuilder.swift in Sources */,
 				2F9D1D732CC506C400EAEA5C /* AddPaymentMethodButton.swift in Sources */,
 				2F9D1D772CC5098700EAEA5C /* PaymentMethod.swift in Sources */,
