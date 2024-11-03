@@ -62,6 +62,6 @@ final class SuperPayDashboardInteractor: PresentableInteractor<SuperPayDashboard
     
     
     func superPayDashboardDidTapTopupButton() {
-        listener.superPayDashboardDidTapTopupButton()
+        listener?.superPayDashboardDidTapTopupButton()
     }
 }

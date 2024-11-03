@@ -9,25 +9,43 @@ import ModernRIBs
 
 protocol TopupRouting: Routing {
     func cleanupViews()
-    // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+    func attachAddPaymentMethod()
+    func detachAddPaymentMethod()
+    
 }
 
 protocol TopupListener: AnyObject {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func topupDidClose()
+}
+
+protocol TopupInteractorDependency : AnyObject {
+    var cardsOnFileRepository: CardOnFileRepository { get }
+    
 }
 
 final class TopupInteractor: Interactor, TopupInteractable {
-
+    
     weak var router: TopupRouting?
     weak var listener: TopupListener?
-
-    // TODO: Add additional dependencies to constructor. Do not perform any logic
-    // in constructor.
-    override init() {}
+    weak var dependency : TopupInteractorDependency?
+    let presentationDelegateProxy : AdaptivePresentationControllerDelegateProxy
+    
+    init(dependency : TopupInteractorDependency) {
+        self.dependency = dependency
+        self.presentationDelegateProxy = AdaptivePresentationControllerDelegateProxy()
+        super.init()
+        self.presentationDelegateProxy.delegate = self
+    }
 
     override func didBecomeActive() {
         super.didBecomeActive()
-        // TODO: Implement business logic here.
+        
+        if dependency?.cardsOnFileRepository.cardOnFile.value.count == 0 {
+            router?.attachAddPaymentMethod()
+        }
+        else {
+            
+        }
     }
 
     override func willResignActive() {
@@ -35,5 +53,21 @@ final class TopupInteractor: Interactor, TopupInteractable {
 
         router?.cleanupViews()
         // TODO: Pause any business logic.
+    }
+}
+
+extension TopupInteractor {
+    func addPaymentMethodDidTapClose() {
+        router?.detachAddPaymentMethod()
+        listener?.topupDidClose()
+    }
+    
+    func addPaymentMethodDidAddCard(method: PaymentMethod) {
+        
+    }
+}
+extension TopupInteractor : AdaptivePresentationControllerDelegate {
+    func presentationControllerDidDismiss() {
+        listener?.topupDidClose()
     }
 }

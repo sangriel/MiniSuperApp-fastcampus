@@ -8,10 +8,14 @@
 import ModernRIBs
 
 protocol TopupDependency: Dependency {
-    var  topupBaseViewController: ViewControllable { get }
+    var topupBaseViewController: ViewControllable { get }
+    var cardsOnFileRepository: CardOnFileRepository { get }
 }
 
-final class TopupComponent: Component<TopupDependency> {
+final class TopupComponent: Component<TopupDependency>, TopupInteractorDependency, AddPaymentMethodDependency  {
+    var cardsOnFileRepository: CardOnFileRepository {
+        dependency.cardsOnFileRepository
+    }
 
     fileprivate var topupBaseViewController: ViewControllable {
         return dependency.topupBaseViewController
@@ -32,8 +36,13 @@ final class TopupBuilder: Builder<TopupDependency>, TopupBuildable {
 
     func build(withListener listener: TopupListener) -> TopupRouting {
         let component = TopupComponent(dependency: dependency)
-        let interactor = TopupInteractor()
+        let interactor = TopupInteractor(dependency: component)
         interactor.listener = listener
-        return TopupRouter(interactor: interactor, viewController: component.topupBaseViewController)
+        
+        let addPaymentMethodBuilder = AddPaymentMethodBuilder(dependency: component)
+        
+        return TopupRouter(interactor: interactor,
+                           viewController: component.topupBaseViewController,
+                           addPaymentMethodBuilder: addPaymentMethodBuilder)
     }
 }

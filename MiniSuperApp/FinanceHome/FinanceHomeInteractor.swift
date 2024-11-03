@@ -71,3 +71,8 @@ extension FinanceHomeInteractor : AdaptivePresentationControllerDelegate {
         router?.detachAddPaymentMethodDashboard()
     }
 }
+extension FinanceHomeInteractor {
+    func topupDidClose() {
+        router?.detachTopup()
+    }
+}
