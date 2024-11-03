@@ -55,18 +55,24 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
     private let viewController: ViewControllable
     
     
-    func attachAddPaymentMethod() {
+    func attachAddPaymentMethod(closeButtonType : DismissButtonType) {
         if addPaymentMethodRouter != nil { return }
-        let router = addPaymentMethodBuilder.build(withListener: interactor)
+        let router = addPaymentMethodBuilder.build(withListener: interactor, closeButtonType: closeButtonType)
         let view = router.viewControllable
         addPaymentMethodRouter = router
-        self.presentInsideNavigation(view)
+        if navigationControllerable != nil {
+            navigationControllerable?.pushViewController(view, animated: true)
+        }
+        else {
+            self.presentInsideNavigation(view)
+        }
         attachChild(router)
     }
     
     func detachAddPaymentMethod() {
         guard let router = addPaymentMethodRouter else { return }
-        dismissPresentedNavigation()
+//        dismissPresentedNavigation()
+        navigationControllerable?.popViewController(animated: true)
         detachChild(router)
         addPaymentMethodRouter = nil
     }
@@ -77,7 +83,13 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
         let router = enterAmountBuilder.build(withListener: interactor)
         let view = router.viewControllable
         enterAmountRouter = router
-        self.presentInsideNavigation(view)
+        if navigationControllerable != nil {
+            navigationControllerable?.setViewControllers([view])
+            resetChildRouters()
+        }
+        else {
+            self.presentInsideNavigation(view)
+        }
         attachChild(router)
     }
     
@@ -106,6 +118,11 @@ final class TopupRouter: Router<TopupInteractable>, TopupRouting {
         self.cardOnFileRouter = nil
     }
     
+    func popToRoot() {
+        navigationControllerable?.popToRoot(animated: true)
+        resetChildRouters()
+    }
+    
 }
 extension TopupRouter {
     private func presentInsideNavigation(_ viewController : ViewControllable) {
@@ -119,5 +136,18 @@ extension TopupRouter {
         if self.navigationControllerable == nil { return }
         viewController.dismiss(completion: completion)
         self.navigationControllerable = nil
+    }
+    
+    private func resetChildRouters() {
+        if let cardOnFileRouter = cardOnFileRouter {
+            detachChild(cardOnFileRouter)
+            self.cardOnFileRouter = nil
+        }
+        
+        if let addPaymentMethodRouter = addPaymentMethodRouter {
+            detachChild(addPaymentMethodRouter)
+            self.addPaymentMethodRouter = nil
+        }
+        
     }
 }

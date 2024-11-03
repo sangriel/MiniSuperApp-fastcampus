@@ -9,19 +9,20 @@ protocol FinanceHomeDependency: Dependency {
 final class FinanceHomeComponent: Component<FinanceHomeDependency>, SuperPayDashboardDependency, CardOnFileDashboardDependency, AddPaymentMethodDependency, TopupDependency {
     var topupBaseViewController: ViewControllable
     
-    var cardsOnFileRepository:  CardOnFileRepository
+    var cardsOnFileRepository: CardOnFileRepository
+    var superPayRepository: SuperPayRepository
     
-    var balance : ReadOnlyCurrentValuePublisher<Double> { balancePublisher }
-    
-    private let balancePublisher : CurrentValuePublisher<Double>
+    var balance : ReadOnlyCurrentValuePublisher<Double> {
+        superPayRepository.balance
+    }
     
     init(dependency: FinanceHomeDependency,
-         balance: CurrentValuePublisher<Double>,
+         superPayRepository: SuperPayRepository,
          cardOnFileRepository: CardOnFileRepository,
          topupBaseViewController : ViewControllable
     ) {
         self.cardsOnFileRepository = cardOnFileRepository
-        self.balancePublisher = balance
+        self.superPayRepository = superPayRepository
         self.topupBaseViewController = topupBaseViewController
         super.init(dependency: dependency)
     }
@@ -41,12 +42,10 @@ final class FinanceHomeBuilder: Builder<FinanceHomeDependency>, FinanceHomeBuild
     }
     
     func build(withListener listener: FinanceHomeListener) -> FinanceHomeRouting {
-        let balancePublisher = CurrentValuePublisher<Double>(initialValue: 0)
-        
         let viewController = FinanceHomeViewController()
         
         let component  = FinanceHomeComponent(dependency: dependency,
-                                              balance: balancePublisher,
+                                              superPayRepository: SuperPaymentRepositoryImp(),
                                               cardOnFileRepository: CardOnFileRepositoryImp(),
                                               topupBaseViewController: viewController)
         

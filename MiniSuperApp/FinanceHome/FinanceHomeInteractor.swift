@@ -75,4 +75,8 @@ extension FinanceHomeInteractor {
     func topupDidClose() {
         router?.detachTopup()
     }
+    
+    func topupDidFinish() {
+        router?.detachTopup()
+    }
 }
