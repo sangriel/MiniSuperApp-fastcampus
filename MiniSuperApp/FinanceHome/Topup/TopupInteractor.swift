@@ -89,6 +89,17 @@ extension TopupInteractor {
     func cardOnFileDidTapClose() {
         router?.detachCardOnFile()
     }
+    
+    func cardOnFileDidTappAddCard() {
+        
+    }
+    
+    func cardOnFileDidSelect(at index: Int) {
+        if let card = dependency?.cardsOnFileRepository.cardOnFile.value[safe : index] {
+            dependency?.paymentMethodStreams.send(card)
+        }
+        router?.detachCardOnFile()
+    }
 }
 extension TopupInteractor : AdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss() {

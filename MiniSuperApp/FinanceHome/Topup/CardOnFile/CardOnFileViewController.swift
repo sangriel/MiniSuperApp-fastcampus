@@ -77,7 +77,6 @@ final class CardOnFileViewController: UIViewController, CardOnFilePresentable, C
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
-    
     listener?.didSelectItem(at: indexPath.row)
   }
   
