@@ -19,7 +19,7 @@ protocol SuperPayDashboardPresentable: Presentable {
 }
 
 protocol SuperPayDashboardListener: AnyObject {
-    // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+   func superPayDashboardDidTapTopupButton()
 }
 
 protocol SuperPayDashboardInteractorDependency {
@@ -47,7 +47,9 @@ final class SuperPayDashboardInteractor: PresentableInteractor<SuperPayDashboard
     
     override func didBecomeActive() {
         super.didBecomeActive()
-        dependency.balance.sink { [weak self] balance in
+        dependency.balance
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] balance in
             self?.dependency.balanceFormatter.string(from: NSNumber(value: balance)).map({ balance in
                 self?.presenter.updateBalance(balance)
             })
@@ -58,5 +60,10 @@ final class SuperPayDashboardInteractor: PresentableInteractor<SuperPayDashboard
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+    
+    
+    func superPayDashboardDidTapTopupButton() {
+        listener?.superPayDashboardDidTapTopupButton()
     }
 }
