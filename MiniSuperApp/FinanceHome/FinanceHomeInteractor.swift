@@ -52,6 +52,10 @@ extension FinanceHomeInteractor {
     func addPaymentMethodDidTapClose() {
         router?.detachAddPaymentMethodDashboard()
     }
+    
+    func addPaymentMethodDidAddCard(method: PaymentMethod) {
+        router?.detachAddPaymentMethodDashboard()
+    }
 }
 extension FinanceHomeInteractor : AdaptivePresentationControllerDelegate {
     func presentationControllerDidDismiss() {
